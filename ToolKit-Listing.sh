@@ -15,7 +15,8 @@ fi
 
 while true; do
     # Scan repository contents and list files/folders
-    echo "\nContents of $LOCAL_DIR:"  
+    echo "Contents of $LOCAL_DIR:"  
+    echo " "
     entries=()
     count=1
     while IFS= read -r entry; do
