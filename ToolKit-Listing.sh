@@ -25,7 +25,8 @@ while true; do
     done < <(find "$LOCAL_DIR" -mindepth 1 -not -path "*/.git*" -printf "%P\n" | sort)
 
     # Prompt user for selection
-    echo "\nEnter a number to execute the corresponding file, or press 0 to quit: "
+    echo " "
+    echo "Enter a number to execute the corresponding file, or press 0 to quit: "
     read -r choice
 
     # Exit if user chooses 0
