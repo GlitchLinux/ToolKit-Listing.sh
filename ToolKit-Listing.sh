@@ -30,7 +30,7 @@ while true; do
     clear
 
     # Display simplified banner
-    echo -e "${CYAN}gLiTcH-ToolKit - Linux System Tools${NC}"
+    echo -e "${PINK}gLiTcH-ToolKit - Linux System Tools${NC}"
     echo ""
 
     # Get sorted list of tools (case-insensitive) excluding hidden files
@@ -47,7 +47,7 @@ while true; do
     count=1
     max_width=35 # Maximum width for each column
     for entry in "${entries[@]}"; do
-        printf "${GREEN}%3d. ${CYAN}%-*s${NC}" "$count" "$max_width" "$entry"
+        printf "${GREEN}%3d. ${PINK}%-*s${NC}" "$count" "$max_width" "$entry"
         if (( count % 3 == 0 )); then
             echo ""
         fi
