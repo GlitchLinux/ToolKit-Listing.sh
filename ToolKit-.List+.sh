@@ -23,15 +23,20 @@ else
 fi
 
 while true; do
-    # Scan repository contents and list files/folders
-    echo -e "${CYAN}Contents of $LOCAL_DIR:${NC}"
-    echo " "
+    # Clear screen before showing menu
+    clear
     
-    # Collect entries
+    # Display header
+    echo -e "${PINK}┌───────────────────────────────────────────────────────┐"
+    echo -e "│ ${CYAN} gLiTcH-ToolKit - Linux System Tools ${PINK}                   │"
+    echo -e "└───────────────────────────────────────────────────────┘${NC}"
+    echo ""
+    
+    # Collect entries and sort alphabetically (case-insensitive)
     entries=()
     while IFS= read -r entry; do
         entries+=("$entry")
-    done < <(find "$LOCAL_DIR" -mindepth 1 -not -path "*/.git*" -printf "%P\n" | sort)
+    done < <(find "$LOCAL_DIR" -mindepth 1 -not -path "*/.git*" -printf "%P\n" | sort -f)
 
     # Determine terminal width and calculate column layout
     terminal_width=$(tput cols)
@@ -53,7 +58,7 @@ while true; do
 
     # Prompt user for selection
     echo " "
-    echo -e "${YELLOW}Enter a number to execute the corresponding file, or press 0 to quit:${NC} "
+    echo -e "${YELLOW}Enter a number to execute the corresponding file, or '0' to quit:${NC} "
     read -r choice
 
     # Exit if user chooses 0
@@ -72,8 +77,10 @@ while true; do
             echo -e "${RED}Selected file is not executable. Attempting to run with bash...${NC}"
             bash "$selected_file"
         fi
+        echo -e "\n${BLUE}Press Enter to return to menu...${NC}"
+        read -r
     else
         echo -e "${RED}Invalid selection. Please try again.${NC}"
+        sleep 1
     fi
-
 done
