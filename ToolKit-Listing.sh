@@ -84,7 +84,9 @@ h   eader_width=$(tput cols)
         read -r
     else
         echo -e "${RED}Invalid selection. Please try again.${NC}"
-        rm -r LOCAL_DIR
+        
+        
+        rm -r /tmp/gLiTcH-ToolKit/
         sleep 1
     fi
 done
