@@ -27,9 +27,9 @@ while true; do
     clear
     
     # Display header
-    echo -e "${PINK}┌──────────────────────────────────────────────────────┐"
-    echo -e "│ ${CYAN} gLiTcH-ToolKit - Linux System Tools ${PINK}       │"
-    echo -e "└───────────────────────────────────────────────────────┘${NC}"
+    echo -e "${PINK}┌─────────────────────────────────────────────┐"
+    echo -e "│ ${CYAN} gLiTcH-ToolKit - Linux System Tools ${PINK}│"
+    echo -e "└──────────────────────────────────────────────┘${NC}"
     echo ""
     
     # Collect entries and sort alphabetically (case-insensitive)
