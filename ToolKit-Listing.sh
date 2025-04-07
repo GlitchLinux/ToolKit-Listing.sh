@@ -30,9 +30,9 @@ while true; do
     clear
 
     # Display banner with proper alignment
-    echo -e "${PINK}┌───────────────────────────────────────────────────────┐"
+    echo -e "${PINK}"
     printf "${PINK}│ ${CYAN}%-53s${PINK}│\n" "gLiTcH-ToolKit - Linux System Tools"
-    echo -e "└───────────────────────────────────────────────────────┘${NC}"
+    echo -e ${NC}"
     echo ""
 
     # Get sorted list of tools (case-insensitive) excluding hidden files
@@ -51,14 +51,14 @@ while true; do
     for entry in "${entries[@]}"; do
         printf "${GREEN}%3d. ${CYAN}%-*s${NC}" "$count" "$max_width" "$entry"
         if (( count % 3 == 0 )); then
-            echo ""
+          e  echo ""
         fi
         ((count++))
     done
     [[ $(( (count-1) % 3 )) != 0 ]] && echo ""  # Add newline if last row incomplete
 
     echo ""
-    echo -e -n "${YELLOW}Enter a number to execute (1-${#entries[@]}), or 0 to quit: ${NC}"
+    echo -e -n "${YELLOW}Enter a number to execute (1-${#entries[@]}), or 0 to quit:${NC}"
     read -r choice
     echo -e "${YELLOW}${choice}${NC}]"
 
