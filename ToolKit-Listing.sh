@@ -27,8 +27,8 @@ while true; do
     clear
     
     # Display header
-    echo -e "${PINK}┌───────────────────────────────────────────────────────┐"
-    echo -e "│ ${CYAN} gLiTcH-ToolKit - Linux System Tools ${PINK}           │"
+    echo -e "${PINK}┌──────────────────────────────────────────────────────┐"
+    echo -e "│ ${CYAN} gLiTcH-ToolKit - Linux System Tools ${PINK}         │"
     echo -e "└───────────────────────────────────────────────────────┘${NC}"
     echo ""
     
