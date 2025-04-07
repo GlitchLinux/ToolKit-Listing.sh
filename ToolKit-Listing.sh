@@ -30,7 +30,7 @@ while true; do
     clear
 
     # Display simplified banner
-    echo -e "${PINK}gLiTcH-ToolKit - Linux System Tools${NC}"
+    echo -e "${YELLOW}gLiTcH-ToolKit - Linux System Tools${NC}"
     echo ""
 
     # Get sorted list of tools (case-insensitive) excluding hidden files
