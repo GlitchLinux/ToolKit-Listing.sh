@@ -23,13 +23,14 @@ else
 fi
 
 while true; do
-    # Clear screen before showing menu
-    clear
-    
-    # Display header
-    echo -e "${PINK}┌─────────────────────────────────────────────┐"
-    echo -e "│ ${CYAN} gLiTcH-ToolKit - Linux System Tools ${PINK}│"
-    echo -e "└──────────────────────────────────────────────┘${NC}"
+   # Display header with dynamic width
+h   eader_width=$(tput cols)
+    header_width=$((header_width < 80 ? header_width : 80))  # Max 80 chars wide
+    bar=$(printf "%${header_width}s" "" | tr ' ' '─')
+
+    echo -e "${PINK}┌${bar}┐"
+    echo -e "│ ${CYAN}gLiTcH-ToolKit - Linux System Tools${PINK}$(printf "%$((header_width-34))s" " ")│"
+    echo -e "└${bar}┘${NC}"
     echo ""
     
     # Collect entries and sort alphabetically (case-insensitive)
