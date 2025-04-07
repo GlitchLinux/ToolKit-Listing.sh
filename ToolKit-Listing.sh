@@ -1,5 +1,4 @@
 #!/bin/bash
-
 cd /tmp
 
 # Define ANSI color codes
@@ -8,14 +7,14 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
-PINK='\033[1;35m'  # Bright Pink
-NC='\033[0m'      # No Color (reset)
+PINK='\033[1;35m'
+NC='\033[0m'
 
 # Set repo URL and local directory
 REPO_URL="https://github.com/GlitchLinux/gLiTcH-ToolKit.git"
 LOCAL_DIR="gLiTcH-ToolKit"
 
-# Clone or update the repository
+# Clone or update repository
 if [ -d "$LOCAL_DIR/.git" ]; then
     echo -e "${YELLOW}Updating repository...${NC}"
     git -C "$LOCAL_DIR" pull
@@ -25,68 +24,52 @@ else
 fi
 
 while true; do
-   # Display header with dynamic width
-h   eader_width=$(tput cols)
-    header_width=$((header_width < 80 ? header_width : 80))  # Max 80 chars wide
-    bar=$(printf "%${header_width}s" "" | tr ' ' '─')
-
-    echo -e "${PINK}┌${bar}┐"
-    echo -e "│ ${CYAN}gLiTcH-ToolKit - Linux System Tools${PINK}$(printf "%$((header_width-34))s" " ")│"
-    echo -e "└${bar}┘${NC}"
+    clear
+    # Clean banner display
+    echo -e "${PINK}┌───────────────────────────────────────────────────────┐"
+    echo -e "│ ${CYAN}gLiTcH-ToolKit - Linux System Tools ${PINK}               │"
+    echo -e "└───────────────────────────────────────────────────────┘${NC}"
     echo ""
+
+    # Get sorted list of tools (case-insensitive)
+    mapfile -t entries < <(find "$LOCAL_DIR" -mindepth 1 -maxdepth 1 -not -path "*/.git*" -printf "%f\n" | sort -f)
     
-    # Collect entries and sort alphabetically (case-insensitive)
-    entries=()
-    while IFS= read -r entry; do
-        entries+=("$entry")
-    done < <(find "$LOCAL_DIR" -mindepth 1 -not -path "*/.git*" -printf "%P\n" | sort -f)
-
-    # Determine terminal width and calculate column layout
-    terminal_width=$(tput cols)
-    max_entry_length=$(printf "%s\n" "${entries[@]}" | awk '{print length}' | sort -nr | head -n1)
-    column_width=$((max_entry_length + 4)) # Add padding for spacing
-    num_columns=$((terminal_width / column_width))
-    num_columns=$((num_columns < 1 ? 1 : num_columns)) # Ensure at least one column
-
-    # Print entries in multi-column format
+    # Display in 4 columns
     count=1
     for entry in "${entries[@]}"; do
-        printf "${GREEN}%3d. ${PINK}%-*s${NC}" "$count" "$column_width" "$entry"
-        if (( count % num_columns == 0 )); then
-            echo "" # Newline after every row
+        printf "${GREEN}%3d. ${PINK}%-30s${NC}" "$count" "$entry"
+        if (( count % 4 == 0 )); then
+            echo ""
         fi
         ((count++))
     done
-    echo "" # Ensure final newline
+    [[ $(( (count-1) % 4 )) != 0 ]] && echo ""  # Add newline if last row incomplete
 
-    # Prompt user for selection
-    echo " "
-    echo -e "${YELLOW}Enter a number to execute the corresponding file, or '0' to quit:${NC} "
+    echo ""
+    echo -e "${YELLOW}Enter a number to execute (1-${#entries[@]}), or 0 to quit:${NC} "
     read -r choice
 
-    # Exit if user chooses 0
     if [[ "$choice" == "0" ]]; then
         echo -e "${RED}Exiting.${NC}"
         break
     fi
 
-    # Execute selected file if valid
-    if [[ -n "$choice" && -n "${entries[$((choice-1))]}" ]]; then
-        selected_file="$LOCAL_DIR/${entries[$((choice-1))]}"
-        if [ -x "$selected_file" ]; then
-            echo -e "${YELLOW}Executing ${CYAN}$selected_file${NC}..."
-            "$selected_file"
+    if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= ${#entries[@]} )); then
+        selected="$LOCAL_DIR/${entries[$((choice-1))]}"
+        if [ -x "$selected" ]; then
+            echo -e "${YELLOW}Executing ${CYAN}$selected${NC}..."
+            "$selected"
         else
-            echo -e "${RED}Selected file is not executable. Attempting to run with bash...${NC}"
-            bash "$selected_file"
+            echo -e "${RED}Running with bash...${NC}"
+            bash "$selected"
         fi
-        echo -e "\n${BLUE}Press Enter to return to menu...${NC}"
+        echo -e "\n${BLUE}Press Enter to continue...${NC}"
         read -r
     else
-        echo -e "${RED}Invalid selection. Please try again.${NC}"
-        
-        
-        rm -r /tmp/gLiTcH-ToolKit/
+        echo -e "${RED}Invalid selection!${NC}"
         sleep 1
     fi
 done
+
+# Cleanup
+rm -rf "/tmp/$LOCAL_DIR"
