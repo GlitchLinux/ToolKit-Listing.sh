@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /tmp
+
 # Define ANSI color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -82,6 +84,7 @@ h   eader_width=$(tput cols)
         read -r
     else
         echo -e "${RED}Invalid selection. Please try again.${NC}"
+        rm -r LOCAL_DIR
         sleep 1
     fi
 done
