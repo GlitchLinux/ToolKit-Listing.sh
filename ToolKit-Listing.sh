@@ -73,7 +73,7 @@ while true; do
             echo -e "${RED}File is not executable. Running with bash...${NC}"
             bash "$selected"
         fi
-        echo -e "\n${BLUE}Press Enter to continue...${NC}"
+        echo -e "\n${PINK}Press Enter to continue...${NC}"
         read -r
     else
         echo -e "${RED}Invalid selection!${NC}"
