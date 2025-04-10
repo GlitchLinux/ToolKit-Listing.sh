@@ -58,11 +58,9 @@ while true; do
     echo ""
     echo -e -n "${CYAN}Enter a number to execute (1-${#entries[@]}), or 0 to quit: ${NC}"
     read -r choice
-    echo -e "${YELLOW}${choice}${NC}]"
-
+    
     # Handle user input
     if [[ "$choice" == "0" ]]; then
-        echo -e "${RED}Exiting.${NC}"
         break
     elif [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= ${#entries[@]} )); then
         selected="$LOCAL_DIR/${entries[$((choice-1))]}"
