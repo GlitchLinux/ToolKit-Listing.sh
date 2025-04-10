@@ -70,10 +70,9 @@ while true; do
             echo -e "${YELLOW}Executing ${CYAN}$selected${NC}..."
             "$selected"
         else
-            echo -e "${RED}File is not executable. Running with bash...${NC}"
             bash "$selected"
         fi
-        echo -e "\n${PINK}Press Enter to continue...${NC}"
+        echo -e "\n${PINK}Press Enter to continue${NC}"
         read -r
     else
         echo -e "${RED}Invalid selection!${NC}"
@@ -82,5 +81,4 @@ while true; do
 done
 
 # Cleanup
-echo -e "${YELLOW}Cleaning up...${NC}"
 rm -rf "/tmp/$LOCAL_DIR" || echo -e "${RED}Failed to clean up temporary files.${NC}"
