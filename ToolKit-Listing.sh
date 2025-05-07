@@ -30,7 +30,7 @@ while true; do
     clear
 
     # Display simplified banner
-    echo -e "${CYAN}gLiTcH-ToolKit - Linux System Tools${NC}"
+    echo -e "${YELLOW}gLiTcH-ToolKit - Linux System Tools${NC}"
     echo ""
 
     # Get sorted list of tools (case-insensitive) excluding hidden files
@@ -56,7 +56,7 @@ while true; do
     [[ $(( (count-1) % 3 )) != 0 ]] && echo ""  # Add newline if last row incomplete
 
     echo ""
-    echo -e -n "${CYAN}Enter a number to execute (1-${#entries[@]}), or 0 to quit: ${NC}"
+    echo -e -n "${YELLOW}Enter a number to execute (1-${#entries[@]}), or 0 to quit: ${NC}"
     read -r choice
     
     # Handle user input
